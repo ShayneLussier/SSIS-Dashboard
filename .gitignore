@@ -1,0 +1,11 @@
+python/__pycache__
+*.spec
+*.vs
+
+python/build/
+
+ssis/bin/
+ssis/obj/
+*.user
+
+*.pbix

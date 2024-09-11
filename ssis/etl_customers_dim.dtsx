@@ -1,0 +1,1138 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/24/2024 5:03:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GR0HE6Q"
+  DTS:CreatorName="DESKTOP-GR0HE6Q\shayn"
+  DTS:DTSID="{C97AB144-1242-46B4-8700-014398787CFA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{DFC0ECE4-A5FB-4FCA-9E65-FA6F46415DDE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-GR0HE6Q.STORE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{932F7855-F0C5-496D-9692-41BE4F5B856A}"
+      DTS:ObjectName="DESKTOP-GR0HE6Q.STORE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-GR0HE6Q;Initial Catalog=STORE;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{932F7855-F0C5-496D-9692-41BE4F5B856A}DESKTOP-GR0HE6Q.STORE;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\customer_etl"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E87F6D75-1941-45D9-AD20-61FC4CFCA83D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="customer_etl"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\customer_etl\convert card_number to str"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="convert card_number to str"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\customer_etl\convert card_number to str.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\customer_etl\convert card_number to str.Inputs[Data Conversion Input].Columns[customer_card_number]"
+                      cachedDataType="i8"
+                      cachedName="customer_card_number"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_card_number]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\customer_etl\convert card_number to str.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output].Columns[Copy of customer_card_number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output].Columns[Copy of customer_card_number]"
+                      name="Copy of customer_card_number"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_card_number]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\customer_etl\convert card_number to str.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\customer_etl\customers Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="customers Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[staging].[transactions]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\customer_etl\customers Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-GR0HE6Q.STORE]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-GR0HE6Q.STORE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_id]"
+                      name="customer_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_name]"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_name]"
+                      name="customer_name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_email]"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_email]"
+                      name="customer_email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_address]"
+                      length="100"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_address]"
+                      name="customer_address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_phone]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_phone]"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_phone]"
+                      name="customer_phone"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_card_number]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_card_number]"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_card_number]"
+                      name="customer_card_number"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[transaction_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="transaction_id" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[transaction_date]"
+                      dataType="i4"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[store_id]"
+                      dataType="i4"
+                      name="store_id" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
+                      dataType="i4"
+                      name="product_id" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[price]"
+                      dataType="numeric"
+                      name="price"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_name]"
+                      dataType="wstr"
+                      length="50"
+                      name="customer_name" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_email]"
+                      dataType="wstr"
+                      length="50"
+                      name="customer_email" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_address]"
+                      dataType="wstr"
+                      length="100"
+                      name="customer_address" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_phone]"
+                      dataType="wstr"
+                      length="50"
+                      name="customer_phone" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].ExternalColumns[customer_card_number]"
+                      dataType="i8"
+                      name="customer_card_number" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_id]"
+                      name="customer_id" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_name]"
+                      name="customer_name" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_email]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_email]"
+                      name="customer_email" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_address]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_address]"
+                      name="customer_address" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_phone]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_phone]"
+                      name="customer_phone" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_card_number]"
+                      dataType="i8"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[customer_card_number]"
+                      name="customer_card_number" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\customer_etl\customers Target"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="customers Target"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[analytics].[customers_dim]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\customer_etl\customers Target.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-GR0HE6Q.STORE]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-GR0HE6Q.STORE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_id]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[extension]"
+                      cachedDataType="bool"
+                      cachedName="extension"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[extension]"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[extension]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[first_name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="first_name"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[first_name]"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[first_name]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[last_name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="last_name"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[last_name]"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[last_name]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[customer_email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_email"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[email]"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_email]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[customer_phone]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_phone"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[phone]"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[customer_address]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="customer_address"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[address]"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_address]" />
+                    <inputColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].Columns[Copy of customer_card_number]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of customer_card_number"
+                      externalMetadataColumnId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[card_number]"
+                      lineageId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output].Columns[Copy of customer_card_number]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[customer_id]"
+                      dataType="i4"
+                      name="customer_id" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[first_name]"
+                      dataType="wstr"
+                      length="40"
+                      name="first_name" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[last_name]"
+                      dataType="wstr"
+                      length="40"
+                      name="last_name" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[email]"
+                      dataType="wstr"
+                      length="255"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[address]"
+                      dataType="wstr"
+                      length="255"
+                      name="address" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[phone]"
+                      dataType="wstr"
+                      length="25"
+                      name="phone" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[extension]"
+                      dataType="wstr"
+                      length="10"
+                      name="extension" />
+                    <externalMetadataColumn
+                      refId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input].ExternalColumns[card_number]"
+                      dataType="wstr"
+                      length="50"
+                      name="card_number" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\customer_etl\customers Target.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\customers Target.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\customers Target.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\customer_etl\customers Target.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\customers Target.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\customer_etl\derive new columns"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="derive new columns"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\customer_etl\derive new columns.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\customer_etl\derive new columns.Inputs[Derived Column Input].Columns[customer_phone]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_phone"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">([FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},"x",1) &gt; 0 ? [SUBSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},1,[FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},"x",1) - 1) : #{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(FINDSTRING(customer_phone,"x",1) &gt; 0 ? SUBSTRING(customer_phone,1,FINDSTRING(customer_phone,"x",1) - 1) : customer_phone)</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\derive new columns.Inputs[Derived Column Input].Columns[customer_name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_name"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]" />
+                    <inputColumn
+                      refId="Package\customer_etl\derive new columns.Inputs[Derived Column Input].Columns[Copy of customer_card_number]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of customer_card_number"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output].Columns[Copy of customer_card_number]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"****" + [RIGHT](#{Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output].Columns[Copy of customer_card_number]},4)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"****" + RIGHT([Copy of customer_card_number],4)</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\customer_etl\derive new columns.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\customer_etl\derive new columns.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[extension]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[extension]"
+                      name="extension"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">([FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},"x",1) &gt; 0) ? [SUBSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},[FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},"x",1) + 1,[LEN](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]}) - [FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]},"x",1)) : ""</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(FINDSTRING(customer_phone,"x",1) &gt; 0) ? SUBSTRING(customer_phone,FINDSTRING(customer_phone,"x",1) + 1,LEN(customer_phone) - FINDSTRING(customer_phone,"x",1)) : ""</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[first_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[first_name]"
+                      name="first_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEFT](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]},[FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]}," ",1) - 1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEFT(customer_name,FINDSTRING(customer_name," ",1) - 1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[last_name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Output].Columns[last_name]"
+                      name="last_name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[SUBSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]},[FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]}," ",1) + 1,[LEN](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]}) - [FINDSTRING](#{Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]}," ",1))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">SUBSTRING(customer_name,FINDSTRING(customer_name," ",1) + 1,LEN(customer_name) - FINDSTRING(customer_name," ",1))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\customer_etl\derive new columns.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\customer_etl\derive new columns.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\derive new columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\customer_etl\derive new columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\derive new columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\customer_etl\remove duplicates"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="remove duplicates"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\customer_etl\remove duplicates.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_id]"
+                      cachedDataType="i4"
+                      cachedName="customer_id"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_name"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_email]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_email"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_email]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_address]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="customer_address"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_address]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_phone]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="customer_phone"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_phone]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\customer_etl\remove duplicates.Inputs[Sort Input].Columns[customer_card_number]"
+                      cachedDataType="i8"
+                      cachedName="customer_card_number"
+                      lineageId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_card_number]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\customer_etl\remove duplicates.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_id]"
+                      dataType="i4"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_id]"
+                      name="customer_id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_name]"
+                      name="customer_name">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_email]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_email]"
+                      name="customer_email">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_email]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_address]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_address]"
+                      name="customer_address">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_address]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_phone]"
+                      name="customer_phone">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_phone]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_card_number]"
+                      dataType="i8"
+                      lineageId="Package\customer_etl\remove duplicates.Outputs[Sort Output].Columns[customer_card_number]"
+                      name="customer_card_number">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\customer_etl\customers Source.Outputs[OLE DB Source Output].Columns[customer_card_number]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\customer_etl.Paths[Data Conversion Output]"
+              endId="Package\customer_etl\derive new columns.Inputs[Derived Column Input]"
+              name="Data Conversion Output"
+              startId="Package\customer_etl\convert card_number to str.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\customer_etl.Paths[Derived Column Output]"
+              endId="Package\customer_etl\customers Target.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\customer_etl\derive new columns.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\customer_etl.Paths[OLE DB Source Output]"
+              endId="Package\customer_etl\remove duplicates.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\customer_etl\customers Source.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\customer_etl.Paths[Sort Output]"
+              endId="Package\customer_etl\convert card_number to str.Inputs[Data Conversion Input]"
+              name="Sort Output"
+              startId="Package\customer_etl\remove duplicates.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="140,42"
+          Id="Package\customer_etl"
+          TopLeft="486,98" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\customer_etl">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\customer_etl\customers Source"
+          TopLeft="535,47" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\customer_etl\customers Target"
+          TopLeft="544,396" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\customer_etl\derive new columns"
+          TopLeft="535,288" />
+        <EdgeLayout
+          Id="Package\customer_etl.Paths[Derived Column Output]"
+          TopLeft="623,330">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="165,42"
+          Id="Package\customer_etl\remove duplicates"
+          TopLeft="536,129" />
+        <EdgeLayout
+          Id="Package\customer_etl.Paths[OLE DB Source Output]"
+          TopLeft="617.5,89">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\customer_etl\convert card_number to str"
+          TopLeft="520,199" />
+        <EdgeLayout
+          Id="Package\customer_etl.Paths[Sort Output]"
+          TopLeft="621.25,171">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\customer_etl.Paths[Data Conversion Output]"
+          TopLeft="622.75,241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\customer_etl\customers Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\customer_etl\customers Target">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
